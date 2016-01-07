@@ -1,3 +1,5 @@
+#include<stdio.h>
+#include<stdbool.h>
 /*
 OVERVIEW: You are given a bank statement where transactions are ordered by date. Write a function that finds the number of transactions in that statement after a given date.
 -- find the count of numbers greater than a given number in a sorted array.
@@ -19,7 +21,30 @@ struct transaction {
 	char date[11];
 	char description[20];
 };
-
+typedef struct transaction bank;
+bool checkdate(char*, char*);
 int countGreaterNumbers(struct transaction *Arr, int len, char *date) {
-	return -1;
+	int count = 0,c=0;
+	for (int i = 0; i < len; i++)
+	{
+		if (checkdate(Arr[i].date,date))
+			c++;
+		if (!(checkdate(Arr[i].date,date)) && c != 0)
+		{
+			count++;
+		}
+	}
+	if (count != 0)
+		return count;
+	return 0;
+}
+
+bool checkdate(char *date1, char *date2)
+{
+	for (int i = 0; i < 10; i++)
+	{
+		if (date1[i] != date2[i])
+			return false;
+	}
+	return true;
 }
